@@ -99,7 +99,9 @@ pipeline{
         stage("Echo all vars") {
             steps {
                 script {
-                    sh(script: 'bash test.sh',returnStdout: true)
+                    withCredentials([file(credentialsId: 'streamsets-image-builder-probe-project', variable: 'GCP_PROBE_CRED_FILE')]) {
+                        echo "$GCP_PROBE_CRED_FILE"    
+                    }
                 }
             }
         }
